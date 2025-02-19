@@ -1,6 +1,3 @@
-<?php
-header("Content-Type: text/html; charset=UTF-8");
-?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -97,14 +94,13 @@ header("Content-Type: text/html; charset=UTF-8");
         ];
         
         let username = "";
-
+        
         function startQuiz() {
             username = document.getElementById("username").value.trim();
             if (username === "") {
                 alert("Por favor, digite seu nome para começar.");
                 return;
             }
-            saveUser(username);
             document.getElementById("start-screen").classList.add("hidden");
             document.getElementById("quiz-screen").classList.remove("hidden");
             nextQuestion();
@@ -125,16 +121,6 @@ header("Content-Type: text/html; charset=UTF-8");
                 document.getElementById("feedback").textContent = "❌ Errado!";
             }
             setTimeout(nextQuestion, 2000);
-        }
-        
-        function saveUser(name) {
-            const date = new Date().toLocaleString();
-            const data = `${date} - ${name}\n`;
-            const blob = new Blob([data], { type: "text/plain" });
-            const a = document.createElement("a");
-            a.href = URL.createObjectURL(blob);
-            a.download = "usuarios.txt";
-            a.click();
         }
     </script>
 </body>
