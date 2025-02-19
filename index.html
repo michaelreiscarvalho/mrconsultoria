@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -95,6 +94,7 @@
         ];
         
         let username = "";
+        let currentIndex = 0;
         
         function startQuiz() {
             username = document.getElementById("username").value.trim();
@@ -108,15 +108,18 @@
         }
         
         function nextQuestion() {
-            let randomIndex = Math.floor(Math.random() * questions.length);
-            document.getElementById("question").textContent = questions[randomIndex].text;
+            if (currentIndex >= questions.length) {
+                document.getElementById("question").textContent = "Fim da prova! Reinicie a página para tentar novamente.";
+                return;
+            }
+            document.getElementById("question").textContent = questions[currentIndex].text;
             document.getElementById("feedback").textContent = "";
+            currentIndex++;
         }
         
         function answer(userAnswer) {
-            let currentQuestion = document.getElementById("question").textContent;
-            let questionObj = questions.find(q => q.text === currentQuestion);
-            if (questionObj && userAnswer === questionObj.answer) {
+            let currentQuestion = questions[currentIndex - 1];
+            if (userAnswer === currentQuestion.answer) {
                 document.getElementById("feedback").textContent = "✅ Correto!";
             } else {
                 document.getElementById("feedback").textContent = "❌ Errado!";
